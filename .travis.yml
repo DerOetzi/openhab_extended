@@ -20,7 +20,7 @@ before_install:
   - ARCHES="amd64 armhf arm64"
 install:
   - for ARCH in $ARCHES; do
-        docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile-$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
+        docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile.$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
         docker run --rm $DOCKER_REPO:$VERSION-$ARCH uname -a;
     done
 after_success:
