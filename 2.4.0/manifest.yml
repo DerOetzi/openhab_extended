@@ -2,17 +2,17 @@ image: deroetzi/openhab_extended:2.4.0
 tags: ['2.4.0', 'latest']
 manifests:
   -
-    image: deroetzi/openhab_extended:2.4.0-amd64-debian
+    image: deroetzi/openhab_extended:2.4.0-amd64
     platform:
       architecture: amd64
       os: linux
   -
-    image: deroetzi/openhab_extended:2.4.0-armhf-debian
+    image: deroetzi/openhab_extended:2.4.0-armhf
     platform:
       architecture: arm
       os: linux
   -
-    image: deroetzi/openhab_extended:2.4.0-arm64-debian
+    image: deroetzi/openhab_extended:2.4.0-arm64
     platform:
       architecture: arm64
       os: linux
