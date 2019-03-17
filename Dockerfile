@@ -1,4 +1,4 @@
-FROM openhab/openhab:2.4.0-armhf-debian
+FROM openhab/openhab:2.4.0-debian
 
 MAINTAINER Johannes Ott <info@johannes-ott.net>
 
