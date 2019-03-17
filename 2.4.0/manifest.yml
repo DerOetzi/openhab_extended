@@ -10,9 +10,11 @@ manifests:
     image: deroetzi/openhab_extended:2.4.0-armhf
     platform:
       architecture: arm
+      variant: v7
       os: linux
   -
     image: deroetzi/openhab_extended:2.4.0-arm64
     platform:
       architecture: arm64
+      variant: v8
       os: linux
