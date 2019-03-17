@@ -1,0 +1,36 @@
+#
+# ------------------------------------------------------------------------------
+#          NOTE: THIS TRAVIS CONFIGURATION IS GENERATED VIA "update.sh"
+#
+#                       PLEASE DO NOT EDIT IT DIRECTLY.
+# ------------------------------------------------------------------------------
+#
+sudo: required
+language: bash
+branches:
+  only:
+    - master
+services:
+  - docker
+before_install:
+  - sudo apt-get install -y uidmap
+  - ./install-manifest-tool.sh
+  - docker info
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - ARCHES="amd64 armhf arm64"
+install:
+  - for ARCH in $ARCHES; do
+        docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile-$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
+        docker run --rm $DOCKER_REPO:$VERSION-$ARCH uname -a;
+    done
+after_success:
+  - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+  - for ARCH in $ARCHES; do
+        docker push $DOCKER_REPO:$VERSION-$ARCH;
+    done
+  - manifest-tool push from-spec $VERSION/manifest.yml
+matrix:
+  fast_finish: true
+env:
+  matrix:
+    - VERSION=2.4.0
