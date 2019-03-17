@@ -1,5 +1,5 @@
 image: deroetzi/openhab_extended:2.4.0
-tags: ['2.4.0', 'latest']
+tags: ['latest']
 manifests:
   -
     image: deroetzi/openhab_extended:2.4.0-amd64
