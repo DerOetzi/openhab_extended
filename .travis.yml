@@ -22,8 +22,8 @@ install:
   - cp template/manifest.yml $VERSION/
   - sed -i -e "s|%version%|$VERSION|" -e "s|%tags%|$TAGS|" $VERSION/manifest.yml
   - for ARCH in $ARCHES; do
-        cp template/Dockerfile $VERSION/Dockerfile.$ARCH
-        sed -i -e "s|%version%|$VERSION|" -e "s|%arch%|$ARCH|" $VERSION/Dockerfile.$ARCH
+        cp template/Dockerfile $VERSION/Dockerfile.$ARCH;
+        sed -i -e "s|%version%|$VERSION|" -e "s|%arch%|$ARCH|" $VERSION/Dockerfile.$ARCH;
         docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile.$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
         docker run --rm $DOCKER_REPO:$VERSION-$ARCH uname -a;
     done
