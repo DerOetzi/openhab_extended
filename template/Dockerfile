@@ -4,7 +4,7 @@ MAINTAINER Johannes Ott <info@johannes-ott.net>
 
 ENV APPDIR="/openhab" \
     SIGNAL_DIR="/signal-cli" \
-    SIGNAL_VERSION="0.6.2" \
+    SIGNAL_VERSION="%signal_version%" \
     CRYPTO_POLICY="unlimited"
 
 RUN apt-get update && \
@@ -15,7 +15,7 @@ RUN apt-get update && \
 
 RUN pip install speedtest-cli
 
-RUN wget -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK/signal-cli/releases/download/v${SIGNAL_VERSION}/signal-cli-${SIGNAL_VERSION}.tar.gz && \
+RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK/signal-cli/releases/download/v${SIGNAL_VERSION}/signal-cli-${SIGNAL_VERSION}.tar.gz && \
     tar xvzf /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz -C /tmp && \
     mkdir -p ${SIGNAL_DIR}/data && \
     cp -rv /tmp/signal-cli-${SIGNAL_VERSION}/* ${SIGNAL_DIR}/ && \

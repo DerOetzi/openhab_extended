@@ -26,6 +26,7 @@ install:
   - for ARCH in $ARCHES; do
         cp template/Dockerfile $VERSION/Dockerfile.$ARCH;
         sed -i -e "s|%version%|$VERSION|" -e "s|%arch%|$ARCH|" $VERSION/Dockerfile.$ARCH;
+        sed -i -e "s|%signal_version%|$SIGNAL_VERSION|" $VERSION/Dockerfile.$ARCH;
         echo "-------- Dockerfile $VERSION $ARCH --------";
         cat $VERSION/Dockerfile.$ARCH;
         docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile.$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
@@ -45,6 +46,8 @@ after_success:
 matrix:
   fast_finish: true
 env:
+  global:
+    - SIGNAL_VERSION=0.6.2
   matrix:
     - VERSION=2.3.0 TAGS=
     - VERSION=2.4.0 TAGS=latest
