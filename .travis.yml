@@ -14,16 +14,25 @@ services:
   - docker
 before_install:
   - sudo apt-get install -y uidmap
-  - ./install-manifest-tool.sh
   - docker info
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - ARCHES="amd64 armhf arm64"
 install:
+  - mkdir $VERSION
+  - cp template/manifest.yml $VERSION/
+  - sed -i -e "s|%version%|$VERSION|" -e "s|%tags%|$TAGS|" $VERSION/manifest.yml
   - for ARCH in $ARCHES; do
+        cp template/Dockerfile $VERSION/Dockerfile.$ARCH
+        sed -i -e "s|%version%|$VERSION|" -e "s|%arch%|$ARCH|" $VERSION/Dockerfile.$ARCH
         docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile.$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
         docker run --rm $DOCKER_REPO:$VERSION-$ARCH uname -a;
     done
 after_success:
+  - export MT_SHA256="80906341c3306e3838437eeb08fff5da2c38bd89149019aa301c7745e07ea8f9"
+  - sudo curl -fSL "https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64" -o "/usr/local/bin/manifest-tool"
+  - echo "${MT_SHA256}  /usr/local/bin/manifest-tool" | sha256sum -c -
+  - sudo chmod a+x "/usr/local/bin/manifest-tool"
+  - echo "manifest-tool installed!"
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
   - for ARCH in $ARCHES; do
         docker push $DOCKER_REPO:$VERSION-$ARCH;
@@ -33,4 +42,5 @@ matrix:
   fast_finish: true
 env:
   matrix:
-    - VERSION=2.4.0
+    - VERSION=2.3.0 TAGS=
+    - VERSION=2.4.0 TAGS=latest
