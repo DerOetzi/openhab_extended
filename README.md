@@ -3,14 +3,9 @@
 ![openHAB Logo](https://github.com/openhab/openhab-docker/raw/master/images/openhab.png)
 
 These images extend the original [openHab images](https://hub.docker.com/r/openhab/openhab) by 
-two programms for usage with the 
+signal-cli for usage with the 
 [openHAB Exec Binding](https://www.openhab.org/addons/bindings/exec/).
-
-Those are 
-[signal-cli](https://github.com/AsamK/signal-cli) 
 to send notifications to Signal Messenger users
-and [speedtest-cli](https://github.com/sivel/speedtest-cli) 
-to test your internet connection speed.
 
 ## Usage
 

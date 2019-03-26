@@ -7,13 +7,13 @@ ENV APPDIR="/openhab" \
     SIGNAL_VERSION="%signal_version%" \
     CRYPTO_POLICY="unlimited"
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-        python-pip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* 
+#RUN apt-get update && \
+#    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+#        python-pip && \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/*
 
-RUN pip install speedtest-cli
+#RUN pip install speedtest-cli
 
 RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK/signal-cli/releases/download/v${SIGNAL_VERSION}/signal-cli-${SIGNAL_VERSION}.tar.gz && \
     tar xvzf /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz -C /tmp && \
