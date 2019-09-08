@@ -52,4 +52,6 @@ env:
     - VERSION=2.3.0 TAGS=
     - VERSION=2.4.0 TAGS=latest
     - VERSION=2.5.0-snapshot TAGS=snapshot
-    - VERSION=2.5.0.M1 TAGS=milestone
+    - VERSION=2.5.0.M1 TAGS=
+    - VERSION=2.5.0.M2 TAGS=
+    - VERSION=2.5.0.M3 TAGS=milestone
