@@ -47,7 +47,7 @@ matrix:
   fast_finish: true
 env:
   global:
-    - SIGNAL_VERSION=0.6.2
+    - SIGNAL_VERSION=0.6.5
   matrix:
     - VERSION=2.4.0 TAGS=
     - VERSION=2.5.0 TAGS=latest
