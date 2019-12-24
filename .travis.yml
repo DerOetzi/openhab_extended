@@ -33,7 +33,6 @@ install:
         echo "-------- Dockerfile $VERSION $ARCH --------";
         cat $VERSION/Dockerfile.$ARCH;
         docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile.$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
-        docker run --rm $DOCKER_REPO:$VERSION-$ARCH uname -a;
     done
 after_success:
   - export MT_SHA256="80906341c3306e3838437eeb08fff5da2c38bd89149019aa301c7745e07ea8f9"
