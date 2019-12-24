@@ -13,16 +13,19 @@ branches:
 services:
   - docker
 before_install:
-  - sudo apt-get install -y uidmap
+  - sudo apt-get install -y uidmap dos2unix
   - docker info
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - ARCHES="amd64 armhf arm64"
+  - dos2unix template/*.sh
 install:
   - mkdir $VERSION
   - cp template/manifest.yml $VERSION/
   - sed -i -e "s|%version%|$VERSION|" -e "s|%tags%|$TAGS|" $VERSION/manifest.yml
   - echo "-------- Manifest $VERSION --------";
   - cat $VERSION/manifest.yml
+  - mkdir $VERSION/cont-init.d
+  - cp template/00-jython_initialize.sh $VERSION/cont-init.d/
   - for ARCH in $ARCHES; do
         cp template/Dockerfile $VERSION/Dockerfile.$ARCH;
         sed -i -e "s|%version%|$VERSION|" -e "s|%arch%|$ARCH|" $VERSION/Dockerfile.$ARCH;
