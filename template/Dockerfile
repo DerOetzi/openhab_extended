@@ -2,7 +2,7 @@ FROM openhab/openhab:%version%-%arch%-debian
 
 ## Where will we install jython inside container
 ARG JYTHON_HOME="/opt/jython"
-ARG JYTHON_VERSION="2.7.0"
+ARG JYTHON_VERSION="2.7.1"
 ARG APPDIR="/openhab"
 
 MAINTAINER Johannes Ott <info@johannes-ott.net>
@@ -21,14 +21,12 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     rm -rf /tmp/signal* && \
     ln -s ${SIGNAL_DIR}/bin/signal-cli /usr/local/bin && \
     echo "#!/bin/bash -x\n${SIGNAL_DIR}/bin/signal-cli --config ${SIGNAL_DIR} -u \${SIGNAL_NUMBER} \$@" >> /usr/local/bin/signal && \
-    chmod +x /usr/local/bin/signal
-
-RUN \
-  mkdir -p ${JYTHON_HOME} && \
-  wget http://central.maven.org/maven2/org/python/jython-installer/${JYTHON_VERSION}/jython-installer-${JYTHON_VERSION}.jar -O /tmp/jython-installer.jar && \
-  java -jar /tmp/jython-installer.jar -s -d ${JYTHON_HOME}/ -t standard -e demo doc src && \
-  rm /tmp/jython-installer.jar && \
-  chmod -R o+w ${JYTHON_HOME}
+    chmod +x /usr/local/bin/signal && \
+    mkdir -p ${JYTHON_HOME} && \
+    wget http://central.maven.org/maven2/org/python/jython-installer/${JYTHON_VERSION}/jython-installer-${JYTHON_VERSION}.jar -O /tmp/jython-installer.jar && \
+    java -jar /tmp/jython-installer.jar -s -d ${JYTHON_HOME}/ -t standard -e demo doc src && \
+    rm /tmp/jython-installer.jar && \
+    chmod -R o+w ${JYTHON_HOME}
 
 ADD cont-init.d/* /etc/cont-init.d/
 
