@@ -51,6 +51,5 @@ env:
   global:
     - SIGNAL_VERSION=0.6.5
   matrix:
-    - VERSION=2.4.0 TAGS=
-    - VERSION=2.5.0 TAGS=latest
+    - VERSION=2.5.1 TAGS=latest
     - VERSION=3.0.0-snapshot TAGS=snapshot
