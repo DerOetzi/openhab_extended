@@ -2,7 +2,7 @@ FROM openhab/openhab:%version%-%arch%-debian
 
 ## Where will we install jython inside container
 ARG JYTHON_HOME="/opt/jython"
-ARG JYTHON_VERSION="2.7.1"
+ARG JYTHON_VERSION="2.7.0"
 ARG APPDIR="/openhab"
 
 MAINTAINER Johannes Ott <info@johannes-ott.net>
