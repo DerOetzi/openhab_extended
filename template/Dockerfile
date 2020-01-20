@@ -24,7 +24,7 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     chmod +x /usr/local/bin/signal && \
     mkdir -p ${JYTHON_HOME} && \
     wget https://search.maven.org/remotecontent?filepath=org/python/jython-installer/${JYTHON_VERSION}/jython-installer-${JYTHON_VERSION}.jar -O /tmp/jython-installer.jar && \
-    java -jar /tmp/jython-installer.jar -s -d ${JYTHON_HOME}/ -t standard -e demo doc src && \
+    java -jar /tmp/jython-installer.jar -s -d ${JYTHON_HOME}/ -t standard -i mod -i ensurepip -e demo doc src && \
     rm /tmp/jython-installer.jar && \
     chmod -R o+w ${JYTHON_HOME}
 
