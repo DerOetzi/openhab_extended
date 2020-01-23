@@ -32,6 +32,7 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     cd /tmp && \
     PYTHONUSERBASE=. pip install --user influxdb && \
     PYTHONUSERBASE=. pip install --user astral && \
+    cp -rv /tmp/lib/python2.7/site-packages/* /opt/lib/ && \
     apt-get purge -y python-pip && apt autoremove -y && apt-get clean 
     
 ADD cont-init.d/* /etc/cont-init.d/
