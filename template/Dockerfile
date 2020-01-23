@@ -27,7 +27,7 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     java -jar /tmp/jython-installer.jar -s -d ${JYTHON_HOME}/ -t standard -i mod -i ensurepip -e demo doc src && \
     rm /tmp/jython-installer.jar && \
     chmod -R o+w ${JYTHON_HOME} && \
-    cd /tmp && wget https://github.com/influxdata/influxdb-python/archive/master.zip && unzip master.zip \
+    cd /tmp && wget https://github.com/influxdata/influxdb-python/archive/master.zip && unzip master.zip && \
     cp -r /tmp/influxdb-python-master/influxdb ${JYTHON_HOME}/Lib/ && rm -rf /tmp/influxdb-python master.zip && \
     wget https://github.com/sffjunkie/astral/archive/master.zip && unzip master.zip && \
     cp -r /tmp/astral-master/src/astral.py ${JYTHON_HOME}/Lib/ && rm -rf /tmp/astral master.zip && 
