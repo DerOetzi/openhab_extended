@@ -30,7 +30,6 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     mkdir /opt/lib/ && \
     apt-get update && apt-get install --no-install-recommends -y python-pip && \
     cd /tmp && \
-    PYTHONUSERBASE=. pip install --user influxdb && \
     PYTHONUSERBASE=. pip install --user astral && \
     cp -rv /tmp/lib/python2.7/site-packages/* /opt/lib/ && \
     apt-get purge -y python-pip && apt autoremove -y && apt-get clean 
