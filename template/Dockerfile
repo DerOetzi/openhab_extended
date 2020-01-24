@@ -25,7 +25,7 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     mkdir -p ${JYTHON_HOME} && \
     wget https://search.maven.org/remotecontent?filepath=org/python/jython-standalone/${JYTHON_VERSION}/jython-standalone-${JYTHON_VERSION}.jar -O ${JYTHON_HOME}/jython.jar && \
     chmod -R o+w ${JYTHON_HOME} && \
-    mkdir /opt/lib/ && \
+    mkdir ${JYTHON_HOME}/lib/ && \
     apt-get update && apt-get install --no-install-recommends -y python-pip && \
     cd /tmp && \
     PYTHONUSERBASE=. pip install --user influxdb && \
