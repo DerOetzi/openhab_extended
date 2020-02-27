@@ -3,9 +3,9 @@ FROM openhab/openhab:%version%-%arch%-debian
 MAINTAINER Johannes Ott <info@johannes-ott.net>
 
 ARG JYTHON_HOME="/opt/jython"
+ARG APPDIR="/openhab"
 
-ENV APPDIR="/openhab" \
-    SIGNAL_DIR="/signal-cli" \
+ENV SIGNAL_DIR="/signal-cli" \
     SIGNAL_VERSION="%signal_version%" \
     CRYPTO_POLICY="unlimited" \
     JYTHON_HOME="${JYTHON_HOME}" \
