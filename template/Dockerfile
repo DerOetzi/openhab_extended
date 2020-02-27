@@ -2,11 +2,13 @@ FROM openhab/openhab:%version%-%arch%-debian
 
 MAINTAINER Johannes Ott <info@johannes-ott.net>
 
+ARG JYTHON_HOME="/opt/jython"
+
 ENV APPDIR="/openhab" \
     SIGNAL_DIR="/signal-cli" \
     SIGNAL_VERSION="%signal_version%" \
     CRYPTO_POLICY="unlimited" \
-    JYTHON_HOME="/opt/jython" \
+    JYTHON_HOME="${JYTHON_HOME}" \
     JYTHON_VERSION="2.7.0" \
     JYTHON_JAVA_OPTS="-Xbootclasspath/a:${JYTHON_HOME}/jython.jar -Dpython.home=${JYTHON_HOME} -Dpython.path=${JYTHON_HOME}/Lib:/opt/lib:${APPDIR}/conf/automation/lib/python"
 
