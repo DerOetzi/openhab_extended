@@ -1,9 +1,9 @@
 FROM openhab/openhab:%version%-%arch%-debian
 
 ## Where will we install jython inside container
-ARG JYTHON_HOME="/opt/jython"
-ARG JYTHON_VERSION="2.7.0"
-ARG APPDIR="/openhab"
+ARG JYTHON_HOME="/opt/jython" \
+    JYTHON_VERSION="2.7.0" \
+    APPDIR="/openhab"
 
 MAINTAINER Johannes Ott <info@johannes-ott.net>
 
@@ -33,12 +33,9 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     PYTHONUSERBASE=. pip install --user astral && \
     PYTHONUSERBASE=. pip install --user requests && \
     cp -rv /tmp/lib/python2.7/site-packages/* /opt/lib/ && \
-    apt-get purge -y python-pip && apt autoremove -y && apt-get clean 
+    apt-get purge -y python-pip && apt-get autoremove -y && apt-get clean  && \
+    rm -rf /var/lib/apt/lists/*
     
 ADD cont-init.d/* /etc/cont-init.d/
 
 VOLUME ${SIGNAL_DIR}/data
-
-WORKDIR ${APPDIR}
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["gosu", "openhab", "tini", "-s", "./start.sh"]
