@@ -35,16 +35,19 @@ install:
         docker build --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VERSION=$VERSION -f $VERSION/Dockerfile.$ARCH -t $DOCKER_REPO:$VERSION-$ARCH $VERSION;
     done
 after_success:
-  - export MT_SHA256="80906341c3306e3838437eeb08fff5da2c38bd89149019aa301c7745e07ea8f9"
-  - sudo curl -fSL "https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64" -o "/usr/local/bin/manifest-tool"
-  - echo "${MT_SHA256}  /usr/local/bin/manifest-tool" | sha256sum -c -
-  - sudo chmod a+x "/usr/local/bin/manifest-tool"
-  - echo "manifest-tool installed!"
-  - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-  - for ARCH in $ARCHES; do
-        docker push $DOCKER_REPO:$VERSION-$ARCH;
-    done
-  - manifest-tool push from-spec $VERSION/manifest.yml
+  - >
+    if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+        export MT_SHA256="80906341c3306e3838437eeb08fff5da2c38bd89149019aa301c7745e07ea8f9"
+        sudo curl -fSL "https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64" -o "/usr/local/bin/manifest-tool"
+        echo "${MT_SHA256}  /usr/local/bin/manifest-tool" | sha256sum -c -
+        sudo chmod a+x "/usr/local/bin/manifest-tool"
+        echo "manifest-tool installed!"
+        docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+        for ARCH in $ARCHES; do
+            docker push $DOCKER_REPO:$VERSION-$ARCH;
+        done
+        manifest-tool push from-spec $VERSION/manifest.yml
+    fi
 matrix:
   fast_finish: true
 env:
@@ -52,4 +55,5 @@ env:
     - SIGNAL_VERSION=0.6.5
   matrix:
     - VERSION=2.5.2 TAGS=latest
-    - VERSION=3.0.0-snapshot TAGS=snapshot
+    - VERSION=2.5.3-snapshot TAGS=2.5.X-snapshot
+    - VERSION=3.0.0-snapshot TAGS=3.0.0-snapshot,snapshot
