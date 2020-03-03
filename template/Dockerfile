@@ -31,6 +31,7 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     cd /tmp && \
     PYTHONUSERBASE=. pip install --user astral && \
     PYTHONUSERBASE=. pip install --user requests && \
+    PYTHONUSERBASE=. pip install --user geohash && \
     cp -rv /tmp/lib/python2.7/site-packages/* /opt/lib/ && \
     apt-get purge -y python-pip && apt-get autoremove -y && apt-get clean  && \
     rm -rf /var/lib/apt/lists/*
