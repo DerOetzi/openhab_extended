@@ -30,6 +30,7 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     apt-get update && apt-get install --no-install-recommends -y python-pip && \
     cd /tmp && \
     PYTHONUSERBASE=. pip install --user astral && \
+    PYTHONUSERBASE=. pip install --user icalendar && \
     PYTHONUSERBASE=. pip install --user requests && \
     cp -rv /tmp/lib/python2.7/site-packages/* /opt/lib/ && \
     apt-get purge -y python-pip && apt-get autoremove -y && apt-get clean  && \
