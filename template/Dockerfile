@@ -1,4 +1,4 @@
-FROM openhab/openhab:%version%-%arch%-debian
+FROM openhab/openhab:%version%-debian
 
 MAINTAINER Johannes Ott <info@johannes-ott.net>
 
