@@ -20,8 +20,6 @@ before_install:
   - docker info
   - docker buildx create --name builder --use
   - docker buildx ls
-  # Prepare openHAB container build
-  - ./update-docker-files.sh
   - source ./update-functions.sh
   - dos2unix template/*.sh
 install:
