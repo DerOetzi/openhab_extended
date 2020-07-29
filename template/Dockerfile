@@ -26,7 +26,7 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     java -jar /tmp/jython-installer.jar -s -d ${JYTHON_HOME}/ -t standard -i mod -i ensurepip -e demo doc src && \
     rm /tmp/jython-installer.jar && \
     chmod -R o+w ${JYTHON_HOME} && \
-    jython -m pip install astral icalendar requests
+    java -jar ${JYTHON_HOME}/jython.jar -m pip install astral icalendar requests
     
 ADD cont-init.d/* /etc/cont-init.d/
 
