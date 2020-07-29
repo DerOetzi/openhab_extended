@@ -11,7 +11,7 @@ ENV APPDIR="${APPDIR}" \
     CRYPTO_POLICY="unlimited" \
     JYTHON_HOME="${JYTHON_HOME}" \
     JYTHON_VERSION="2.7.0" \
-    JYTHON_JAVA_OPTS="-Xbootclasspath/a:${JYTHON_HOME}/jython.jar -Dpython.home=${JYTHON_HOME} -Dpython.path=${JYTHON_HOME}/Lib:${APPDIR}/conf/automation/lib/python"
+    JYTHON_JAVA_OPTS="-Xbootclasspath/a:${JYTHON_HOME}/jython.jar -Dpython.home=${JYTHON_HOME} -Dpython.path=${JYTHON_HOME}/Lib:/opt/lib:${APPDIR}/conf/automation/lib/python"
 
 RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK/signal-cli/releases/download/v${SIGNAL_VERSION}/signal-cli-${SIGNAL_VERSION}.tar.gz && \
     tar xvzf /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz -C /tmp && \
