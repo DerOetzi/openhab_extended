@@ -20,8 +20,7 @@ and use one of the following versions:
 #### Version tags
 - **latest**, 2.5.11
 - 2.5.X (X <= 11)
-- 3.0.0-snapshot
-- 3.0.0.M5
+- 3.0.0.RC1
 
 All versions are although available for host-systems **-amd64**, 
 **-armhf** and **-arm64**
