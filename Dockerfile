@@ -1,19 +1,22 @@
-FROM openhab/openhab:%version%-debian
+ARG VERSION
+
+FROM openhab/openhab:${VERSION}-debian
 
 MAINTAINER Johannes Ott <info@johannes-ott.net>
 
 ARG JYTHON_HOME="/opt/jython"
 ARG APPDIR="/openhab"
+ARG SIGNAL_VERSION
+ARG JYTHON_VERSION="2.7.0"
 
 ENV APPDIR="${APPDIR}" \
     SIGNAL_DIR="/signal-cli" \
-    SIGNAL_VERSION="%signal_version%" \
     CRYPTO_POLICY="unlimited" \
     JYTHON_HOME="${JYTHON_HOME}" \
-    JYTHON_VERSION="2.7.0" \
     JYTHON_JAVA_OPTS="-Xbootclasspath/a:${JYTHON_HOME}/jython.jar -Dpython.home=${JYTHON_HOME} -Dpython.path=${JYTHON_HOME}/Lib:/opt/lib:${APPDIR}/conf/automation/lib/python"
 
-RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK/signal-cli/releases/download/v${SIGNAL_VERSION}/signal-cli-${SIGNAL_VERSION}.tar.gz && \
+RUN echo "Installing Signal ${SIGNAL_VERSION}" && \
+    wget -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK/signal-cli/releases/download/v${SIGNAL_VERSION}/signal-cli-${SIGNAL_VERSION}.tar.gz && \
     tar xvzf /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz -C /tmp && \
     mkdir -p ${SIGNAL_DIR}/data && \
     cp -rv /tmp/signal-cli-${SIGNAL_VERSION}/* ${SIGNAL_DIR}/ && \
@@ -21,11 +24,13 @@ RUN wget -q -O /tmp/signal-cli-${SIGNAL_VERSION}.tar.gz https://github.com/AsamK
     ln -s ${SIGNAL_DIR}/bin/signal-cli /usr/local/bin && \
     echo "#!/bin/bash -x\n${SIGNAL_DIR}/bin/signal-cli --config ${SIGNAL_DIR} -u \${SIGNAL_NUMBER} \$@" >> /usr/local/bin/signal && \
     chmod +x /usr/local/bin/signal && \
+    echo "Installing Jython ${JYTHON_VERSION}" && \
     mkdir -p ${JYTHON_HOME} && \
     wget -q https://search.maven.org/remotecontent?filepath=org/python/jython-installer/${JYTHON_VERSION}/jython-installer-${JYTHON_VERSION}.jar -O /tmp/jython-installer.jar && \
     java -jar /tmp/jython-installer.jar -s -d ${JYTHON_HOME}/ -t standard -i mod -i ensurepip -e demo doc src && \
     rm /tmp/jython-installer.jar && \
     chmod -R o+w ${JYTHON_HOME} && \
+    echo "Installing plugins" && \
     mkdir /opt/lib/ && \
     apt-get update && apt-get install --no-install-recommends -y python-pip && \
     cd /tmp && \

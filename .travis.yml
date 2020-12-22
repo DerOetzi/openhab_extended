@@ -23,20 +23,12 @@ before_install:
   - source ./update-functions.sh
   - dos2unix template/*.sh
 install:
-  - mkdir $VERSION
-  - mkdir $VERSION/cont-init.d
-  - cp template/00-jython_initialize.sh $VERSION/cont-init.d/
-  - cp template/Dockerfile $VERSION/Dockerfile
-  - sed -i -e "s|%version%|$VERSION|" $VERSION/Dockerfile;
-  - sed -i -e "s|%signal_version%|$SIGNAL_VERSION|" $VERSION/Dockerfile;
-  - echo "-------- Dockerfile $VERSION --------";
-  - cat $VERSION/Dockerfile;
-  - build_arg_options="--build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg VERSION=$VERSION"
+  - build_arg_options="--build-arg BUILD_DATE=$(date +"%Y-%m-%dT%H:%M:%SZ") --build-arg VCS_REF=$TRAVIS_COMMIT --build-arg VERSION=$VERSION --build-arg SIGNAL_VERSION=$SIGNAL_VERSION"
   - tags=$(tags $VERSION $DIST)
   - echo $tags
   - tag_options=${tags//$(docker_repo)/--tag $(docker_repo)}
   - build_options="$build_arg_options --platform $(platforms $VERSION $DIST) $tag_options --progress plain"
-  - path="$VERSION"
+  - path="."
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
         docker buildx build $build_options --push $path;
@@ -47,5 +39,4 @@ matrix:
   fast_finish: true
 env:
   matrix:
-    - VERSION=2.5.11 DIST=debian SIGNAL_VERSION=0.6.8
     - VERSION=3.0.0.RC1 DIST=debian SIGNAL_VERSION=0.7.0
