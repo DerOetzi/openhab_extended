@@ -39,4 +39,5 @@ matrix:
   fast_finish: true
 env:
   matrix:
-    - VERSION=3.0.0.RC1 DIST=debian SIGNAL_VERSION=0.7.0
+    - VERSION=3.0.0 DIST=debian SIGNAL_VERSION=0.7.0
+    - VERSION=3.1.0-snapshot DIST=debian SIGNAL_VERSION=0.7.0
