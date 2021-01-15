@@ -1,6 +1,6 @@
 # openHAB Extended
 
-![openHAB Logo](https://github.com/openhab/openhab-docker/raw/master/images/openhab.png)
+![openHAB Logo](https://github.com/openhab/openhab-docker/raw/main/openhab.png)
 
 These images extend the original [openHab images](https://hub.docker.com/r/openhab/openhab) by 
 signal-cli for usage with the 
