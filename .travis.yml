@@ -39,5 +39,5 @@ matrix:
 env:
   matrix:
     - VERSION=3.0.1 DIST=debian SIGNAL_VERSION=0.8.0
-    - VERSION=3.1.0-Snapshot DIST=debian SIGNAL_VERSION=0.8.0
+    - VERSION=3.1.0-snapshot DIST=debian SIGNAL_VERSION=0.8.0
     - VERSION=3.1.0.M1 DIST=debian SIGNAL_VERSION=0.8.0
