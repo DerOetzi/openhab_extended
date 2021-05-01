@@ -18,9 +18,9 @@ Replace the image name openhab/openhab by deroetzi/openhab_extended
 and use one of the following versions:
 
 #### Version tags
-- **latest**, 2.5.11
-- 2.5.X (X <= 11)
-- 3.0.0.RC1
+- **latest**, 3.0.2
+- **snapshot**, 3.1.0-snapshot
+- **milestone**, 3.1.0.M3
 
 All versions are although available for host-systems **-amd64**, 
 **-armhf** and **-arm64**
